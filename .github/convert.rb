@@ -6,6 +6,9 @@ README = 'README.md'
 ARCHIVE = 'ARCHIVE.md'
 ARCHIVE_TAG = 'archive'
 
+EMOJI_ITUNES = '📲 '
+EMOJI_GITHUB = ':octocat:'
+
 def output_stars(number)
   case number
   when 100...200
@@ -96,11 +99,21 @@ def output_apps(apps)
       end
 
       o << "\n"
-      o << "  - #{link}\n"
+      o << "  - #{output_link link}\n"
       o << "  - #{homepage}\n" unless homepage.nil?
-      o << "  - #{itunes}\n" unless itunes.nil?
+      o << "  - #{output_link itunes}\n" unless itunes.nil?
   end
   o
+end
+
+def output_link(l)
+  if l.include? ('github')
+    "#{EMOJI_GITHUB} #{l}"
+  elsif l.include? ('itunes.apple.com')
+    "#{EMOJI_ITUNES} #{l}"
+  else
+    l
+  end
 end
 
 def write_readme(j)
